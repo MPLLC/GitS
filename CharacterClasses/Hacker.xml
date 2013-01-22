@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CharacterClass>
+  <Name>Hacker</Name>
+  <InitialStats>
+    <HP>10</HP>
+    <TP>25</TP>
+    <BaseDMG>2</BaseDMG>
+    <BaseDefense>25</BaseDefense>
+  </InitialStats>
+  <LevelingStats>
+    <HPMultiplier>2</HPMultiplier>
+    <TPMultiplier>4</TPMultiplier>
+    <BaseDMGMultiplier>2</BaseDMGMultiplier>
+    <DefenseIncrease>5</DefenseIncrease>
+  </LevelingStats>
+  <Attacks>
+    <Attack>
+      <AttackName>Basic Attack</AttackName>
+      <AttackLevel>1</AttackLevel>
+      <TPCost>0</TPCost>
+      <DMGModifier>1</DMGModifier>
+      <HitPenalty>0</HitPenalty>
+      <StatusEffect>
+        <Type>null</Type>
+        <Duration>0</Duration>
+        <Level>0</Level>
+      </StatusEffect>
+    </Attack>
+  </Attacks>
+</CharacterClass>

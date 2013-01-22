@@ -1,0 +1,117 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class _Default : System.Web.UI.Page
+{
+    private PlayerCharacter PC = null;
+    private Enemy Enemy = null;
+
+    protected void AttackButtonClick(object sender, EventArgs e)
+    {
+        Button button = (Button)sender;
+        string attackName = button.CommandName;
+        this.PC.Attack(attackName, this.Enemy);
+    }
+
+    protected void Page_Init(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+            List<Attack> pcAttacks = new List<Attack>();
+            List <Attack> enemyAttacks = new List<Attack>();
+
+            Attacks hackerAttacks = new Attacks("Hacker");
+            Attacks shillAttacks = new Attacks("Shill");
+
+            Attack hackerAttack = hackerAttacks.Retrieve(1);
+            Attack shillAttack = shillAttacks.Retrieve(1);
+
+            pcAttacks.Add(hackerAttack);
+            enemyAttacks.Add(shillAttack);
+
+            List<Loot> loot = new List<Loot>();
+
+            ICharacterClass charClass = new Hacker();
+            ICharacterClass targetClass = new Shill();
+
+            CharAttacks charAttacks = new CharAttacks(pcAttacks);
+            CharBio charBio = new CharBio("Neo", "Male", "A young hacker, unaware that he's the chosen one");
+            CharInv charInv = new CharInv(loot, 2.34f);
+            CharStats charStats = new CharStats(1, charClass.HP, charClass.TP, charClass.HP, charClass.TP, 0, charClass.BaseDefense, charClass.BaseDMG, charClass.BaseDMGMultiplier, 0.80f, charClass);
+
+            CharAttacks targetAttacks = new CharAttacks(enemyAttacks);
+            CharBio targetBio = new CharBio("Smith", "Male", "An agent of the Matrix");
+            CharInv targetInv = new CharInv(loot, 0.00f);
+            CharStats targetStats = new CharStats(1, targetClass.HP, targetClass.TP, targetClass.HP, targetClass.TP, 0, charClass.BaseDefense, targetClass.BaseDMG, targetClass.BaseDMGMultiplier, 0.80f, targetClass);
+
+            this.PC = new PlayerCharacter(charAttacks, charBio, charInv, charStats, new Equipment(null, null, null));
+            this.Enemy = new Enemy(targetAttacks, targetBio, targetInv, targetStats);
+        }
+        else
+        {
+            this.PC = (PlayerCharacter)System.Web.HttpContext.Current.Session["attacker"];
+            this.Enemy = (Enemy)System.Web.HttpContext.Current.Session["target"];
+        }
+
+        Table attackGrid = new Table();
+        TableRow tr = new TableRow();
+        attackGrid.Rows.Add(tr);
+
+        int attackCount = this.PC.Attacks.Count;
+
+        for (int i = 0; i < attackCount; i++)
+        {
+            Button attackButton = new Button();
+            attackButton.CommandName = this.PC.Attacks.ElementAt(i).Name;
+            attackButton.Text = attackButton.CommandName;
+            attackButton.Click += new EventHandler(this.AttackButtonClick);
+
+            TableCell td = new TableCell();
+            td.Controls.Add(attackButton);
+            tr.Cells.Add(td);
+        }
+
+        PlaceHolder1.Controls.Add(attackGrid);
+    }
+
+    protected void Page_Load(object sender, EventArgs e) { }
+
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+        string attackResult;
+
+        if (System.Web.HttpContext.Current.Session["attackResult"] != null)
+        {
+            AttackResults testMessage = (AttackResults)System.Web.HttpContext.Current.Session["attackResult"];
+            attackResult = testMessage.Text;
+        }
+        else
+        {
+            attackResult = "";
+        }
+
+        mainLabel.Text = this.PC.Name + " " + this.PC.Gender + "\n<br />";
+        mainLabel.Text += "HP: " + this.PC.CurrentHP + " TP: " + this.PC.CurrentTP + " DMG: " + this.PC.DMG + "\n<br />";
+        mainLabel.Text += this.PC.Class.GetType().ToString() + "\n<br /><br />";
+        mainLabel.Text += "Attack info: <br />";
+        mainLabel.Text += "DMG: " + this.PC.DMG + " DMG Modifier " + this.PC.DMGModifier + " Chance to Hit: " + this.PC.ChanceToHit + "<br /><br />";
+        mainLabel.Text += "Enemy HP: " + this.Enemy.CurrentHP + "<br /><br />";
+
+        mainLabel.Text += attackResult;
+
+        System.Web.HttpContext.Current.Session["attacker"] = this.PC;
+        System.Web.HttpContext.Current.Session["target"] = this.Enemy;
+    }
+}

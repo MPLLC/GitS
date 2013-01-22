@@ -1,0 +1,28 @@
+﻿#header
+{
+    text-align: center;
+}
+
+#mainNav
+{
+    text-align: center;
+}
+
+.left 
+{
+    width: 20%;
+    float: left;
+    border: 1px solid black;
+}
+
+.content 
+{
+    width: 79%;
+    float: left;
+    border: 1px solid red;
+}
+
+#footer 
+{
+    text-align: center;
+}

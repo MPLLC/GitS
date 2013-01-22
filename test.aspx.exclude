@@ -1,0 +1,19 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/GitS.master" CodeFile="test.aspx.cs" Inherits="_Default" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="mainContentPane" ID="mainContent" runat="server">
+    <div class="left" id="left" runat="server">
+        Left-hand stuff
+    </div>
+    <div class="content" id="content" runat="server">
+        <asp:Label ID="mainLabel" runat="server">
+        </asp:Label><br /><br />
+     
+        <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+        <br />
+        <br />
+        <asp:HyperLink ID="Link1" NavigateUrl="~/combat.aspx" runat="server">Go to combat page</asp:HyperLink>      
+    </div>
+</asp:Content>

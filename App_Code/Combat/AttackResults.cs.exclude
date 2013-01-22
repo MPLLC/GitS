@@ -1,0 +1,61 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+/// <summary>
+/// Helper class that handles the outcome of an attack
+/// </summary>
+
+public class AttackResults
+{
+    #region Class Data Members
+
+    private string attackerName;
+    private string targetName;
+    private int damage;
+    private bool success;
+    private string text;
+
+    #endregion
+
+    #region Class Methods
+
+    public AttackResults(string attackerName, string targetName, int damage, bool success)
+    {
+        this.attackerName = attackerName;
+        this.targetName = targetName;
+        this.damage = damage;
+        this.success = success;
+    }
+
+    public void FormatResults() 
+    {
+        if (this.success == true)
+        {
+            this.text = this.attackerName + " hit " + this.targetName + " for " + this.damage + " damage!<br />";
+        }
+        else
+        {
+            this.text = this.attackerName + " missed " + this.targetName + "! (" + this.damage + " damage)<br />";
+        }
+    }
+
+    #endregion
+
+    #region Class Properties
+
+    public string Text
+    {
+        get { return this.text; }
+    }
+
+    #endregion
+}

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CharacterClass>
+  <Name>Soldier</Name>
+  <InitialStats>
+    <HP>25</HP>
+    <TP>10</TP>
+    <BaseDMG>6</BaseDMG>
+    <BaseDefense>10</BaseDefense>
+  </InitialStats>
+  <LevelingStats>
+    <HPMultiplier>4</HPMultiplier>
+    <TPMultiplier>2</TPMultiplier>
+    <BaseDMGMultiplier>4</BaseDMGMultiplier>
+    <DefenseIncrease>2</DefenseIncrease>
+  </LevelingStats>
+  <Attacks>
+    <Attack>
+      <AttackName>Basic Attack</AttackName>
+      <AttackLevel>1</AttackLevel>
+      <TPCost>0</TPCost>
+      <DMGModifier>1</DMGModifier>
+      <HitPenalty>0</HitPenalty>
+      <StatusEffect>
+        <Type>None</Type>
+        <Duration>0</Duration>
+        <Level>0</Level>
+      </StatusEffect>
+    </Attack>
+  </Attacks>
+</CharacterClass>

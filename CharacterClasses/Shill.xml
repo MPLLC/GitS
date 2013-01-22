@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CharacterClass>
+  <Name>Shill</Name>
+  <InitialStats>
+    <HP>16</HP>
+    <TP>16</TP>
+    <BaseDMG>4</BaseDMG>
+    <BaseDefense>16</BaseDefense>
+  </InitialStats>
+  <LevelingStats>
+    <HPMultiplier>3</HPMultiplier>
+    <TPMultiplier>3</TPMultiplier>
+    <BaseDMGMultiplier>3</BaseDMGMultiplier>
+    <DefenseIncrease>4</DefenseIncrease>
+  </LevelingStats>
+  <Attacks>
+    <Attack>
+      <AttackName>Basic Attack</AttackName>
+      <AttackLevel>1</AttackLevel>
+      <TPCost>0</TPCost>
+      <DMGModifier>1</DMGModifier>
+      <HitPenalty>0</HitPenalty>
+      <StatusEffect>
+        <Type>None</Type>
+        <Duration>0</Duration>
+        <Level>0</Level>
+      </StatusEffect>
+    </Attack>
+  </Attacks>
+</CharacterClass>
